@@ -37,10 +37,8 @@ jobs:
     - name: Checking formatting of modified files
       run: git diff --name-only -r ${{ github.event.pull_request.base.sha }} HEAD | grep '+*\.tf$' | xargs terraform fmt
 
-
     - name: Push changes
       run: |
-#        date > generated.txt
         git config user.name github-actions
         git config user.email github-actions@github.com
         git add .
