@@ -34,13 +34,9 @@ jobs:
 #        ref: ${{github.event.pull_request.head}}
 #      run: gh pr checkout ${{ github.event.pull_request.number }}
 
-    - name: Get changes
-      run: |
-        for f in $(git diff --name-only -r ${{ github.base_ref }} HEAD | xargs); \
-        terraform fmt $f; done
+    - name: Checking formatting of modified files
+      run: git diff --name-only -r ${{ github.base_ref }} HEAD | grep '+*\.tf' | xargs terraform fmt
 
-#    - name: Format
-#      run: 
 
     - name: Push changes
       run: |
