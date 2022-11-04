@@ -1,0 +1,39 @@
+name: Terraform Autoformatting
+
+on:
+  pull_request:
+    branches:
+      - main
+
+#env:
+#  PROJECT_ID: ""
+
+
+jobs:
+  terraform-pr-fmt:
+    name: Autoformatting .tf files
+    runs-on: ubuntu-latest
+#    environment: production
+
+    permissions:
+      contents: 'read'
+      pull-requests: 'write'
+#      id-token: 'write'
+
+    steps:
+    - name: Checkout
+#      uses: actions/checkout@v3
+#      with:
+#        fetch-depth: 2
+      run: gh pr checkout ${{ github.event.pull_request.number }}
+
+    - name: Get changes
+      run: |
+        for f in $(git diff --name-only -r ${{ github.base_ref }} HEAD | xargs) \
+        terraform fmt $f
+
+#    - name: Format
+#      run: 
+
+    - name: Push changes
+      run: git push
