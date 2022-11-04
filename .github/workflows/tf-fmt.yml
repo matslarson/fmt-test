@@ -35,7 +35,7 @@ jobs:
 #      run: gh pr checkout ${{ github.event.pull_request.number }}
 
     - name: Checking formatting of modified files
-      run: git diff --name-only -r ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep '+*\.tf$' | xargs terraform fmt
+      run: git diff --name-only -r ${{ github.event.pull_request.base.sha }} HEAD | grep '+*\.tf$' | xargs terraform fmt
 
 
     - name: Push changes
