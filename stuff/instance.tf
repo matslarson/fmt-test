@@ -6,6 +6,6 @@ provider "aws" {
 resource "aws_instance" "example" {
   ami           = "ami-2757f631"
   instance_type = "r4.nano"
-  fake_value = "new string"
+  fake_value    = "new string"
 
 }
