@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   build:
-    name: "Pre-commit Hooks"
+    name: "Syntax Validation"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -32,5 +32,5 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add -u
-          git diff --staged --quiet || git commit -m "`pre-commit` made changes to your branch. Please confirm the changes before merging."
+          git diff --staged --quiet || git commit -m "pre-commit made changes to your branch. Please confirm the changes before merging."
           git diff-index --quiet HEAD -- || git push
