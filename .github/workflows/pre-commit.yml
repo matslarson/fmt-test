@@ -21,4 +21,4 @@ jobs:
         with:
           path: ~/.cache/pre-commit
           key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
-      - run: pre-commit run --show-diff-on-failure --all-files
+      - run: pre-commit run --all-files
