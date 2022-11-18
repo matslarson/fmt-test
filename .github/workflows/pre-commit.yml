@@ -5,6 +5,7 @@ on:
       - main
 jobs:
   build:
+    name: "pre-commit"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -22,3 +23,11 @@ jobs:
           path: ~/.cache/pre-commit
           key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
       - run: pre-commit run --all-files
+#      - run: |
+#          echo "::set-output name=fixed::$(git diff --name-only --fix-filter=ACMRT ${{ github.event.pull}})"
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add -u
+          git diff --staged --quiet || git commit -m "`pre-commit` made changes to your branch. Please confirm the changes before merging."
+          git diff-index --quiet HEAD -- || git push
