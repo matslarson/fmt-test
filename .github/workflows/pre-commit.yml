@@ -23,7 +23,9 @@ jobs:
         with:
           path: ~/.cache/pre-commit
           key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
-      - run: pre-commit run --all-files
+      - run: |
+          set +e
+          pre-commit run --all-files
 #      - run: |
 #          echo "::set-output name=fixed::$(git diff --name-only --fix-filter=ACMRT ${{ github.event.pull}})"
       - run: |
